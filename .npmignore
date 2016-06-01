@@ -1,0 +1,8 @@
+/src/
+/es5/test/
+*.sublime-project
+*.sublime-workspace
+/Gruntfile.coffee
+/.babelrc
+/.eslintrc.json
+/.eslintignore

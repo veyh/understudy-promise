@@ -1,0 +1,6 @@
+/node_modules
+/es5
+/src/node_modules
+
+*.sublime-project
+*.sublime-workspace

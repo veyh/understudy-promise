@@ -1,0 +1,42 @@
+{
+  "name": "understudy-promise",
+  "version": "0.1.0",
+  "description": "",
+  "main": "es5/lib/index.js",
+  "directories": {
+    "lib": "es5/lib/"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "mkdirp-promise": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "grunt": "^0.4.5",
+    "grunt-babel": "^6.0.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-env": "^0.4.4",
+    "grunt-growl": "^0.1.5",
+    "grunt-newer": "^1.2.0",
+    "lodash": "^4.12.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.17.3",
+    "sinon-as-promised": "^4.0.0",
+    "sinon-chai": "^2.8.0",
+    "source-map-support": "^0.4.0"
+  },
+  "scripts": {
+    "test": "mocha --require ./mocha-init --recursive es5/lib/test/",
+    "postinstall": "node create-symlinks"
+  },
+  "author": "Janne Virtala (https://github.com/veyh)",
+  "license": "MIT"
+}
