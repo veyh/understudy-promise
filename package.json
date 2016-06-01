@@ -35,7 +35,8 @@
   },
   "scripts": {
     "test": "mocha --require ./mocha-init --recursive es5/lib/test/",
-    "postinstall": "node create-symlinks"
+    "postinstall": "node create-symlinks",
+    "prepublish": "grunt build:release"
   },
   "author": "Janne Virtala (https://github.com/veyh)",
   "license": "MIT"
