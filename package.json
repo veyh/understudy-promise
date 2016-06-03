@@ -39,5 +39,5 @@
     "prepublish": "grunt build:release"
   },
   "author": "Janne Virtala (https://github.com/veyh)",
-  "license": "MIT"
+  "license": "Unlicense"
 }
