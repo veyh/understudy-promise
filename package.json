@@ -1,6 +1,6 @@
 {
   "name": "understudy-promise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "es5/lib/index.js",
   "directories": {
