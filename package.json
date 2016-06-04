@@ -40,5 +40,6 @@
     "prepublish": "grunt build:release"
   },
   "author": "Janne Virtala (https://github.com/veyh)",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "repository": "veyh/understudy-promise"
 }
