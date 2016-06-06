@@ -1,6 +1,6 @@
 var Promise = require("bluebird");
 var fs = Promise.promisifyAll(require("fs"));
-var mkdirp = require("mkdirp-promise");
+var mkdirp = require("mkdirp-then");
 
 Promise.map([
   { fromPath: "../../es5/lib", toDir: "./es5/node_modules/", toName: "lib" },
