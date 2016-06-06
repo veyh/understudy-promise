@@ -10,7 +10,13 @@ Promise.map([
 
   return mkdirp(item.toDir)
   .then(function () { return fs.existsAsync(toPath); })
-  .then(exists => {
+  .catch(function (err) {
+    if (err.message === "true")
+      return true;
+
+    throw err;
+  })
+  .then(function (exists) {
     if (!exists) {
       return fs.symlinkAsync(item.fromPath, toPath, "dir");
     }
