@@ -1,6 +1,5 @@
-/node_modules
-/es5
-/src/node_modules
-
 *.sublime-project
 *.sublime-workspace
+/es5/
+/node_modules/
+npm-debug.log

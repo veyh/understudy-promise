@@ -1,6 +1,6 @@
 import Promise from "bluebird";
 
-export default class UnderstudyPromise {
+module.exports = class UnderstudyPromise {
   constructor() {
     this.perform = this._performer(false);
     this.waterfall = this._performer(true);
@@ -121,4 +121,4 @@ export default class UnderstudyPromise {
 
     return work;
   }
-}
+};

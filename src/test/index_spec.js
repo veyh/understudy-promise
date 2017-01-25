@@ -5,7 +5,7 @@ chai.use(require("sinon-chai"));
 import Promise from "bluebird";
 require("sinon-as-promised")(Promise);
 
-import UnderstudyPromise from "lib";
+import UnderstudyPromise from "../";
 
 describe("shared/utils/understudy-promise", function () {
   it("modifies arguments with .waterfall", function () {

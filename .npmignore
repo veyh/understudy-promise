@@ -1,8 +1,10 @@
-/src/
-/es5/test/
 *.sublime-project
 *.sublime-workspace
-/Gruntfile.coffee
 /.babelrc
-/.eslintrc.json
 /.eslintignore
+/.eslintrc.json
+/es5/test/
+/Gruntfile.coffee
+/src/
+/npm-debug.log
+/mocha-init.js
