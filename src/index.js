@@ -11,14 +11,16 @@ module.exports = class UnderstudyPromise {
   }
 
   _registrar(property) {
-    return function (action, hookFn) {
+    return (action, hookFn) => {
       this._validateRegistrar(action, hookFn);
 
-      if (!this[property])
+      if (!this[property]) {
         this[property] = {};
+      }
 
-      if (!this[property][action])
+      if (!this[property][action]) {
         this[property][action] = [];
+      }
 
       let interceptors = this[property][action];
       interceptors.push(hookFn);
@@ -36,11 +38,11 @@ module.exports = class UnderstudyPromise {
   }
 
   _performer(waterfall) {
-    return function perform(action, ...args) {
+    const perform = (action, ...args) => {
       this._validateAction(action);
       const work = this._getWorkArgsAndFn(args);
 
-      function iterate(self, interceptors, result, after) {
+      const iterate = (interceptors, result, after) => {
         if (!interceptors) {
           return Promise.try(_ => after(result));
         }
@@ -54,12 +56,8 @@ module.exports = class UnderstudyPromise {
           return Promise.try(_ => after(result));
         }
 
-        function nextInterceptor(waterfallResult) {
-          if (i === len) {
-            return Promise.try(_ => after(waterfallResult));
-          }
-
-          else if (i < len) {
+        const nextInterceptor = (waterfallResult) => {
+          if (i < len) {
             const interceptor = interceptors[i++];
 
             return Promise.try(_ => interceptor(
@@ -67,35 +65,36 @@ module.exports = class UnderstudyPromise {
             ))
             .then(nextInterceptor);
           }
-        }
+
+          return Promise.try(_ => after(waterfallResult));
+        };
 
         return nextInterceptor(result);
-      }
+      };
 
-      function executePerform(waterfallArgs) {
-        const self = this;
+      const executePerform = (waterfallArgs) => {
         let performArgs = waterfall ? waterfallArgs : work.args;
 
         return Promise.try(_ => work.fn(performArgs))
-        .then(function (performResult) {
+        .then((performResult) => {
           let afterArg = waterfall ? performResult : work.args;
 
           return iterate(
-            self,
-            self._after_interceptors && self._after_interceptors[action],
+            this._after_interceptors && this._after_interceptors[action],
             afterArg,
             afterResult => waterfall ? afterResult : performResult
           );
         });
-      }
+      };
 
       return iterate(
-        this,
         this._before_interceptors && this._before_interceptors[action],
         work.args,
-        executePerform.bind(this)
+        executePerform
       );
     };
+
+    return perform;
   }
 
   _validateAction(action) {
