@@ -10,6 +10,28 @@ module.exports = class UnderstudyPromise {
     this._after_interceptors = null;
   }
 
+  unregister(action, func) {
+    for (const property of ["_before_interceptors", "_after_interceptors"]) {
+      if (this[property] && this[property][action]) {
+        this[property][action] = this[property][action].filter(f => f !== func);
+      }
+    }
+  }
+
+  unregisterAll(action) {
+    if (!action) {
+      this._before_interceptors = null;
+      this._after_interceptors = null;
+      return;
+    }
+
+    for (const property of ["_before_interceptors", "_after_interceptors"]) {
+      if (this[property]) {
+        delete this[property][action];
+      }
+    }
+  }
+
   _registrar(property) {
     return (action, hookFn) => {
       this._validateRegistrar(action, hookFn);

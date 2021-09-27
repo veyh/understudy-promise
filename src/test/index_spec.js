@@ -125,4 +125,71 @@ describe("shared/utils/understudy-promise", function () {
       expect(caughtError).to.eql(err);
     });
   });
+
+  it("supports removing a single hook", async function () {
+    const actor = new UnderstudyPromise;
+    const firstFn = sinon.stub();
+    const secondFn = sinon.stub();
+    const otherFn = sinon.stub();
+
+    actor.after("foo", firstFn);
+    actor.after("foo", secondFn);
+    actor.after("other", otherFn);
+    await actor.perform("foo", () => {});
+
+    expect(firstFn.callCount).to.eql(1);
+    expect(secondFn.callCount).to.eql(1);
+    expect(otherFn.callCount).to.eql(0);
+
+    actor.unregister("foo", firstFn);
+    await actor.perform("foo", () => {});
+    await actor.perform("other", () => {});
+
+    expect(firstFn.callCount).to.eql(1);
+    expect(secondFn.callCount).to.eql(2);
+    expect(otherFn.callCount).to.eql(1);
+  });
+
+  it("supports removing all hooks for an action", async function () {
+    const actor = new UnderstudyPromise;
+    const firstFn = sinon.stub();
+    const secondFn = sinon.stub();
+    const otherFn = sinon.stub();
+
+    actor.after("foo", firstFn);
+    actor.after("foo", secondFn);
+    actor.after("other", otherFn);
+    await actor.perform("foo", () => {});
+
+    expect(firstFn.callCount).to.eql(1);
+    expect(secondFn.callCount).to.eql(1);
+    expect(otherFn.callCount).to.eql(0);
+
+    actor.unregisterAll("foo");
+    await actor.perform("foo", () => {});
+    await actor.perform("other", () => {});
+
+    expect(firstFn.callCount).to.eql(1);
+    expect(secondFn.callCount).to.eql(1);
+    expect(otherFn.callCount).to.eql(1);
+  });
+
+  it("supports removing all hooks", async function () {
+    const actor = new UnderstudyPromise;
+    const firstFn = sinon.stub();
+    const secondFn = sinon.stub();
+    const otherFn = sinon.stub();
+
+    actor.after("foo", firstFn);
+    actor.after("foo", secondFn);
+    actor.after("other", otherFn);
+
+    actor.unregisterAll();
+    await actor.perform("foo", () => {});
+    await actor.perform("other", () => {});
+
+    expect(firstFn.callCount).to.eql(0);
+    expect(secondFn.callCount).to.eql(0);
+    expect(otherFn.callCount).to.eql(0);
+  });
 });
