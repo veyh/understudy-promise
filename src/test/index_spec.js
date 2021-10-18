@@ -192,4 +192,17 @@ describe("shared/utils/understudy-promise", function () {
     expect(secondFn.callCount).to.eql(0);
     expect(otherFn.callCount).to.eql(0);
   });
+
+  it("allows omitting work fn and arg", async function () {
+    const actor = new UnderstudyPromise;
+    const func = sinon.stub();
+    actor.after("foo", func);
+
+    await actor.perform("foo", "some-value");
+    await actor.perform("foo");
+
+    expect(func.callCount).to.eql(2);
+    expect(func.getCall(0).args).to.eql(["some-value"]);
+    expect(func.getCall(1).args).to.eql([undefined]);
+  });
 });

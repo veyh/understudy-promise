@@ -8,3 +8,4 @@
 /src/
 /npm-debug.log
 /mocha-init.js
+pnpm-lock.yaml

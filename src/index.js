@@ -126,20 +126,26 @@ module.exports = class UnderstudyPromise {
   }
 
   _getWorkArgsAndFn(args) {
-    const work = {};
+    const work = {
+      fn: noop,
+    };
 
     if (args.length === 2) {
       [work.args, work.fn] = args;
     }
 
     else if (args.length === 1) {
-      [work.fn] = args;
-    }
+      if (typeof args[0] === "function") {
+        work.fn = args[0];
+      }
 
-    if (typeof work.fn !== "function"){
-      throw new Error("workFn must be a function");
+      else {
+        work.args = args[0];
+      }
     }
 
     return work;
   }
 };
+
+function noop() {}
